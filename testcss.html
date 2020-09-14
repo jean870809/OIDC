@@ -3,95 +3,65 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="testcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-        }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background: rgb(47,70,110) ;
-            font-family: arial, sans-serif;
-        }
-
-        a {
-            text-decoration: none
-        }
-
-        .user-card {
-            width: 350px;
-            height: 350px;
-            margin: 50px auto;
-            position: relative;
-            background: #fff;
-            overflow: hidden;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-            -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-            -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-            border-radius: 5px;
-            -moz-border-radius: 5px;
-            -webkit-border-radius: 5px;
-        }
-
-        .login-with-fb,
-        .login-with-google {
-            width: 100%;
-            height: 40px;
-            display: block;
-            margin: 15px 0;
-            color: #fff;
-            text-align: center;
-            line-height: 40px;
-            font-size: 14px;
-            opacity: .95;
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-        }
-
-        .login-with-fb:hover,
-        .login-with-google:hover {
-            opacity: 1;
-        }
-
-        .login-with-fb {
-            background: #527EBF
-        }
-
-        .login-with-google {
-            background: #DB4A37;
-        }
-
-        .login-with-fb .icon,
-        .login-with-google .icon {
-            float: left;
-            font-size: 21px;
-            width: 50px;
-            height: 26px;
-            margin: 7px;
-            padding: 2px;
-            text-align: center;
-            border-right: 1px solid #fff;
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="user-card round5">
-        <a href='javascript: FBLogin()'  class="login-with-fb" >
-            <span class="icon fa fa-facebook"></span>
-            Login with facebook
-        </a>
-        <a href='javascript: GoogleLogin()' class="login-with-google">
-            <span class="icon fa fa-google-plus"></span>
-            Login with google
-        </a>
-    </div>
+    <div class="container-fluid loginbg">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12 login-box">
+          <div>
+            <p class="login-title text-center">Login to Win The Jackpot</p>
+            <img src="歷史羊.jpg" style="height: 30vh; width: 30vh; display:block; margin:auto;">
+          </div>
+          <div class="login-third-party-login">
+            <p class="login-button-info-text login-info-text text-center">EASILY USING</p>
+            <div class="login-button-container container-fluid">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <button class="login-facebook login-button">
+                 <span class="header-sprite login-fb-logo"></span>
+                  <!-- react-text: 78 -->FACEBOOK<!-- /react-text -->
+              </button>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <button class="login-google login-button" id="gPlusLogin">
+                 <span class="header-sprite login-gplus-logo"></span>
+                    <!-- react-text: 81 -->GOOGLE<!-- /react-text -->
+              </button>
+              </div>
+            </div>
+          </div>
+          <p class="login-info-text text-center">- OR USING EMAIL -</p>
+          <form class="login-login-form">
+            <fieldset class="login-input-container">
+              <div class="login-input-item">
+                <input type="email" class="login-user-input-email login-user-input" name="email" placeholder="Your Email Address">
+              </div>
+              <div class="login-input-item">
+                <input type="password" class="login-user-input-password login-user-input" name="password" placeholder="Enter Password">
+              </div>
+            </fieldset>
+            <fieldset class="login-login-button-container">
+              <button class="login-login-button">Log in</button>
+            </fieldset>
+          </form>
+          <div class="login-link-container">
+            <a class="login-link" href="#">Recover password</a>
+            <div class="login-right-links">
+              <span class="login-info-text">New to Win The Jackpot?</span>
+              <a class="login-create-account-link login-link" href="#">Create Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
     
     <script type="text/javascript">
         //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
