@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -14,12 +15,19 @@
         body {
             margin: 0;
             padding: 0;
-            background: rgb(47,70,110) ;
+            background:  rgb(47,70,110);
             font-family: arial, sans-serif;
         }
 
         a {
             text-decoration: none
+        }
+
+        .by {
+            color: #a7a7a7;
+            font-size: 16px;
+            margin: 33px 0px;
+            display: inline-block
         }
 
         .user-card {
@@ -35,6 +43,85 @@
             border-radius: 5px;
             -moz-border-radius: 5px;
             -webkit-border-radius: 5px;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border: 1px solid #dee3e4;
+            padding: 3px 12px;
+            margin: 6px 0;
+        }
+
+        input:focus {
+            outline: none;
+            border: 1px solid #03b3b5;
+            transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            -moz-transition: all .5s ease-in-out;
+            -webkit-transition: all .5s ease-in-out;
+        }
+
+        .login-box,
+        .signup-box {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: calc(100% - 25px);
+            background: #fff;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+
+        .login-box {
+            padding: 20px 40px;
+            right: 0px;
+        }
+
+        .signup-box {
+            padding: 40px;
+            right: -350px;
+        }
+
+        .login,
+        .signup {
+            text-align: center;
+            color: #fff;
+            background: rgb(47,70,110);
+            line-height: 30px;
+            opacity: 0.95;
+            cursor: pointer
+        }
+
+        .login:hover {
+            opacity: 1
+        }
+
+        .or {
+            display: block;
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid #dee3e4;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .or:before {
+            content: 'or';
+            width: 40px;
+            height: 18px;
+            position: absolute;
+            top: -5px;
+            right: calc(50% - 20px);
+            background-color: #fff;
+            text-align: center;
+            line-height: 10px;
+            color: #555
         }
 
         .login-with-fb,
@@ -77,22 +164,91 @@
             text-align: center;
             border-right: 1px solid #fff;
         }
+
+
+        /**** footer *****/
+
+        .user-card .footer {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 25px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            font-family: sans-serif;
+        }
+
+        .footer a {
+            color: rgb(47,70,110);
+        }
+
+        @keyframes heart {
+            0% {
+                transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -webkit-transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.5, 1.5);
+                -ms-transform: scale(1.5, 1.5);
+                -webkit-transform: scale(1.5, 1.5);
+            }
+
+            100% {
+                transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -webkit-transform: scale(1, 1);
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="user-card round5">
-        <a href='javascript: FBLogin()'  class="login-with-fb" >
-            <span class="icon fa fa-facebook"></span>
-            Login with facebook
-        </a>
-        <a href='javascript: GoogleLogin()' class="login-with-google">
-            <span class="icon fa fa-google-plus"></span>
-            Login with google
-        </a>
-    </div>
     
+    <div class="user-card round5">
+        <div class="login-box">
+            <form class="login-form" name="login" action="">
+                <input type="username" name="username" class="username" placeholder="username" />
+                <input type="password" name="password" class="password" placeholder="password" />
+                <input type="submit" name="login" value="Login" class="login" />
+            </form>
+
+            <div class="or"></div>
+
+            <a href="javascript: FBLogin()" class="login-with-fb">
+                <span class="icon fa fa-facebook"></span>
+                Login with facebook
+            </a>
+            <a href="javascript: GoogleLogin()" class="login-with-google">
+                <span class="icon fa fa-google-plus"></span>
+                Login with google
+            </a>
+        </div>
+        <div class="signup-box">
+            <form class="signup-form" name="signup" action="">
+                <input type="username" name="username" class="username" placeholder="username" />
+                <input type="email" name="email" class="email" placeholder="email" />
+                <input type="password" name="password" class="password" placeholder="password" />
+                <input type="password" name="confirm-password" class="confirm-password"
+                    placeholder="confirm-password" />
+                <input type="submit" name="signup" value="Signup" class="signup" />
+            </form>
+        </div>
+
+        <!-- Card Footer -->
+
+        <div class="footer">
+            <span>or </span><a class="toggle-link" href="#">Sign Up</a>
+        </div>
+    </div>
+
+
+
+
     <script type="text/javascript">
         //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
         let FB_appID = "633575047536520";
@@ -250,7 +406,40 @@
 
 
     </script>
+    <script>$(document).ready(function () {
 
+            /* Login & Signup Toggle */
+
+            var cardToggle = 0;
+
+
+
+            $('.toggle-link').on('click', function (event) {
+                event.preventDefault();
+                if (cardToggle == 0) {
+                    $(this).text('Login');
+                    $('.login-box').animate({
+                        right: '350px'
+                    });
+                    $('.signup-box').animate({
+                        right: '0'
+                    });
+
+                    cardToggle = 1;
+
+                } else {
+                    $(this).text('Signup');
+                    $('.login-box').animate({
+                        right: '0'
+                    });
+                    $('.signup-box').animate({
+                        right: '-350px'
+                    });
+
+                    cardToggle = 0;
+                }
+            })
+        })</script>
 </body>
 
 </html>
