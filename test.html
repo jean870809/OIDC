@@ -137,7 +137,7 @@
                     //抓userID
                     let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
-                    alert("成功用Facebook帳號登入")
+                    console.log("成功用Facebook帳號登入");
 
                 } else {
                     // user FB取消授權
@@ -197,7 +197,7 @@
                 function (success) {
                     // Login API call is successful 
                     console.log(success);
-                    alert("成功用Google帳號登入")
+                    console.log("成功用Google帳號登入");
                     let Google_ID = success["El"];
 
 
