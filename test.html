@@ -1,18 +1,105 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(47,70,110) ;
+            font-family: arial, sans-serif;
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        .user-card {
+            width: 350px;
+            height: 350px;
+            margin: 50px auto;
+            position: relative;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+
+        .login-with-fb,
+        .login-with-google {
+            width: 100%;
+            height: 40px;
+            display: block;
+            margin: 15px 0;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+            opacity: .95;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+        }
+
+        .login-with-fb:hover,
+        .login-with-google:hover {
+            opacity: 1;
+        }
+
+        .login-with-fb {
+            background: #527EBF
+        }
+
+        .login-with-google {
+            background: #DB4A37;
+        }
+
+        .login-with-fb .icon,
+        .login-with-google .icon {
+            float: left;
+            font-size: 21px;
+            width: 50px;
+            height: 26px;
+            margin: 7px;
+            padding: 2px;
+            text-align: center;
+            border-right: 1px solid #fff;
+        }
+    </style>
 </head>
+
 <body>
 
- 
+    <div class="user-card round5">
+        <a href="#" class="login-with-fb" onclick="FBLogin();">
+            <span class="icon fa fa-facebook"></span>
+            Login with facebook
+        </a>
+        <a href="#" class="login-with-google" onclick="GoogleLogin();">
+            <span class="icon fa fa-google-plus"></span>
+            Login with google
+        </a>
+    </div>
+    <!--
     <div>
-        Facebook登入：<input type="button"  value="Facebook登入" onclick="FBLogin();" />
+        Facebook登入：<input type="button" value="Facebook登入" onclick="FBLogin();" />
     </div>
     <div>
-        Google登入：<input type="button"  value="Google登入" onclick="GoogleLogin();" />
+        Google登入：<input type="button" value="Google登入" onclick="GoogleLogin();" />
     </div>
-
+    -->
     <script type="text/javascript">
         //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
         let FB_appID = "633575047536520";
@@ -32,7 +119,7 @@
             FB.init({
                 appId: FB_appID,//FB appID
                 cookie: true,  // enable cookies to allow the server to access the session
-                
+
                 xfbml: true,  // parse social plugins on this page
                 version: 'v8.0' // use graph api version
             });
@@ -41,7 +128,7 @@
 
         //使用自己客製化的按鈕來登入
         function FBLogin() {
-            
+
             FB.login(function (response) {
                 //debug用
                 console.log(response);
@@ -51,7 +138,7 @@
                     let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
 
-                   
+
                 } else {
                     // user FB取消授權
                     alert("Facebook帳號無法登入");
@@ -64,8 +151,9 @@
 
 
     <!--Google登入-->
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};HandleGoogleApiLibrary()"
-            onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};HandleGoogleApiLibrary()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
     <script type="text/javascript">
         //進入 https://console.developers.google.com/，找「憑證」頁籤(記得先選對專案)，即可找到用戶端ID
         let Google_appId = "705731056995-j38vomksd41gcq9hr9ncadvdij8mppvv.apps.googleusercontent.com";
@@ -110,8 +198,8 @@
                     // Login API call is successful 
                     console.log(success);
                     let Google_ID = success["El"];
-                   
-                    
+
+
                 },
                 function (error) {
                     // Error occurred
@@ -128,46 +216,47 @@
 
     <!--有些網站會做帳號和user FB帳號的綁定/解除綁定，或你想讓使用者刪除你的FB App，讓使用者下次可以切換不同FB帳號登入你的網站-->
     <!--下面程式碼派得上用場-->
-     <script type="text/javascript">
-        
-//刪除使用者已授權你的FB App，好讓使用者下次重新授權你的FB App
-//參考：https://stackoverflow.com/questions/6634212/remove-the-application-from-a-user-using-graph-api/7741978#7741978
-function Del_FB_App() { 
-    FB.getLoginStatus(function (response) {//取得目前user是否登入FB網站
-        //debug用
-        console.log(response);
-        if (response.status === 'connected') {
-            // Logged into Facebook.
-            //抓userID
-            FB.api("/me/permissions", "DELETE", function (response) {
-                console.log("刪除結果");
-                console.log(response); //gives true on app delete success 
+    <script type="text/javascript">
+
+        //刪除使用者已授權你的FB App，好讓使用者下次重新授權你的FB App
+        //參考：https://stackoverflow.com/questions/6634212/remove-the-application-from-a-user-using-graph-api/7741978#7741978
+        function Del_FB_App() {
+            FB.getLoginStatus(function (response) {//取得目前user是否登入FB網站
+                //debug用
+                console.log(response);
+                if (response.status === 'connected') {
+                    // Logged into Facebook.
+                    //抓userID
+                    FB.api("/me/permissions", "DELETE", function (response) {
+                        console.log("刪除結果");
+                        console.log(response); //gives true on app delete success 
+                    });
+                } else {
+                    // FB取消授權
+                    console.log("無法刪除FB App");
+                }
             });
-        } else {
-            // FB取消授權
-            console.log("無法刪除FB App");
+
+
         }
-    });
 
+    </script>
 
-}
+    <!--類似上面Delete FB App的效果，呼叫此function後，下次使用者想再Google登入你的網站就必須重新選擇帳號-->
+    <script type="text/javascript">
 
-     </script>
+        //參考：https://developers.google.com/identity/sign-in/web/disconnect
 
-     <!--類似上面Delete FB App的效果，呼叫此function後，下次使用者想再Google登入你的網站就必須重新選擇帳號-->
-     <script type="text/javascript">
-   
-     //參考：https://developers.google.com/identity/sign-in/web/disconnect
-
-     function Google_disconnect() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.disconnect().then(function () {
-        console.log('User disconnect.'); 
-    });
-     }
+        function Google_disconnect() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.disconnect().then(function () {
+                console.log('User disconnect.');
+            });
+        }
 
 
     </script>
 
 </body>
+
 </html>
