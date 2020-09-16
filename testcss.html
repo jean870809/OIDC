@@ -101,6 +101,8 @@
                     let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
                     console.log("成功用Facebook帳號登入");
+                    window.location = 'https://becks9908.github.io/';
+
 
                 } else {
                     // user FB取消授權
@@ -162,7 +164,7 @@
                     console.log(success);
                     console.log("成功用Google帳號登入");
                     let Google_ID = success["El"];
-
+                    window.location = 'https://becks9908.github.io/';
 
                 },
                 function (error) {
