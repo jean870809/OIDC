@@ -89,7 +89,9 @@
                     //抓userID
                     let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
-                    window.location = 'https://rorubyy.github.io/ruby/tmp';
+                    console.log('Successful login for: ' + response.name);
+                    alert('Thanks for logging in, ' + response.name + '!')
+                    //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     alert("成功用Facebook帳號登入");
 
 
