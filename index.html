@@ -167,7 +167,11 @@
 
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Google帳號登入");
-                    alert("歡迎" + profile.getName() + "登入!");
+                    //alert("歡迎" + profile.getName() + "登入!");
+                    window.localStorage.setItem("googlename", profile.getName());
+                    justify_notifyAPI();
+                    justify_showMess(profile.getName());
+                    //window.location = 'FB.html';
 
                 },
                 function (error) {
@@ -176,7 +180,30 @@
                     console.log(error);
                 }
             );
-
+        }
+        function justify_notifyAPI() {
+            if (window.Notification) {
+                // 支援
+                console.log("支援Web Notifications API");
+            } else {
+                // 不支援
+                console.log("不支援Web Notifications API");
+            }
+        }
+        function justify_showMess(username) {
+            if (window.Notification && Notification.permission !== "denied") {
+                Notification.requestPermission(function (status) {
+                    if (status === "granted") {
+                        var n = new Notification('Win The Jackpot', {
+                            body: username + '歡迎登入本系統',
+                            icon: "歷史羊.jpg"
+                        });
+                        // alert("Hi! this is the notifyMessages!");
+                    } else {
+                        var n = new Notification("baby! i will leave you!");
+                    }
+                });
+            }
         }
 
 
@@ -259,6 +286,7 @@
                 }
             })
         })</script>
+
 </body>
 
 </html>
