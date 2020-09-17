@@ -94,7 +94,8 @@
                     console.log('Welcome!  Fetching your information.... ');
                     FB.api('/me', function (response) {
                         console.log('Successful login for: ' + response.name);
-                        alert("歡迎" + response.name + "登入!")
+                        FB_justify_notifyAPI();
+                        FB_justify_showMess(response.name);
                     });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Facebook帳號登入");
@@ -107,6 +108,35 @@
             }, { scope: 'public_profile,email' });
 
         }
+        function FB_justify_notifyAPI() {
+            if (window.Notification) {
+                // 支援
+                console.log("支援Web Notifications API");
+            } else {
+                // 不支援
+                console.log("不支援Web Notifications API");
+            }
+        }
+        function FB_justify_showMess(username) {
+            if (window.Notification && Notification.permission !== "denied") {
+                Notification.requestPermission(function (status) {
+                    if (status === "granted") {
+                        var n = new Notification('Win The Jackpot', {
+                            body: username + '歡迎使用FB登入本系統',
+                            icon: "歷史羊.jpg"
+                        });
+                        n.onclick = function () {
+                            window.location = 'https://rorubyy.github.io/ruby/tmp';
+
+                        }
+                        // alert("Hi! this is the notifyMessages!");
+                    } else {
+                        var n = new Notification("baby! i will leave you!");
+                    }
+                });
+            }
+        }
+
     </script>
 
 
@@ -195,9 +225,13 @@
                 Notification.requestPermission(function (status) {
                     if (status === "granted") {
                         var n = new Notification('Win The Jackpot', {
-                            body: username + '歡迎登入本系統',
+                            body: username + '歡迎使用Google登入本系統',
                             icon: "歷史羊.jpg"
                         });
+                        n.onclick = function () {
+                            window.location = 'https://rorubyy.github.io/ruby/tmp';
+
+                        }
                         // alert("Hi! this is the notifyMessages!");
                     } else {
                         var n = new Notification("baby! i will leave you!");
@@ -205,6 +239,7 @@
                 });
             }
         }
+
 
 
 
