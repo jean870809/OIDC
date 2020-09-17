@@ -30,6 +30,7 @@
                 <span class="icon fa fa-google-plus"></span>
                 Login with google
             </a>
+
         </div>
         <div class="signup-box">
             <form class="signup-form" name="signup" action="">
@@ -93,7 +94,7 @@
                     console.log('Welcome!  Fetching your information.... ');
                     FB.api('/me', function (response) {
                         console.log('Successful login for: ' + response.name);
-                        alert("歡迎"+response.name +"登入!")
+                        alert("歡迎" + response.name + "登入!")
                     });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Facebook帳號登入");
@@ -158,8 +159,15 @@
                     // Login API call is successful 
                     console.log(success);
                     let Google_ID = success["El"];
-                    window.location = 'https://rorubyy.github.io/ruby/tmp';
-                    alert("成功用Google帳號登入");
+                    var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                    var profile = googleUser.getBasicProfile();
+                    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                    console.log('Full Name: ' + profile.getName());
+
+
+                    //window.location = 'https://rorubyy.github.io/ruby/tmp';
+                    //alert("成功用Google帳號登入");
+                    alert("歡迎" + profile.getName() + "登入!");
 
                 },
                 function (error) {
