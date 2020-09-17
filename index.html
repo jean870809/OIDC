@@ -93,8 +93,7 @@
                     console.log('Welcome!  Fetching your information.... ');
                     FB.api('/me', function (response) {
                         console.log('Successful login for: ' + response.name);
-                        document.getElementById('status').innerHTML =
-                            'Thanks for logging in, ' + response.name + '!';
+                        alert("歡迎"+response.name +"登入!")
                     });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Facebook帳號登入");
