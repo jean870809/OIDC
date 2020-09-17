@@ -11,7 +11,7 @@
 
 <body>
 
-    
+
     <div class="user-card round5">
         <div class="login-box">
             <form class="login-form" name="login" action="">
@@ -89,10 +89,15 @@
                     //抓userID
                     let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
-                    console.log('Successful login for: ' + response.name);
-                    alert('Thanks for logging in, ' + response.name + '!')
+
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function (response) {
+                        console.log('Successful login for: ' + response.name);
+                        document.getElementById('status').innerHTML =
+                            'Thanks for logging in, ' + response.name + '!';
+                    });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
-                    alert("成功用Facebook帳號登入");
+                    //alert("成功用Facebook帳號登入");
 
 
                 } else {
