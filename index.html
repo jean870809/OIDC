@@ -117,23 +117,23 @@
         
         function FBLogin() {
 
-            FB.login(function (event) {
+            FB.login(function (response) {
                 //debug用
-                console.log(event);
-                if (event.authResponse) {
+                console.log(response);
+                if (response.authResponse) {
                     //user已登入FB
                     //抓userID
-                    let FB_ID = event["authResponse"]["userID"];
+                    let FB_ID = response["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
 
                     //console.log('Welcome!  Fetching your information.... ');
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
-                        if (!isUserEqual(event.authResponse, firebaseUser)) {
+                        if (!isUserEqual(response.authResponse, firebaseUser)) {
                             // Build Firebase credential with the Facebook auth token.
                             var credential = firebase.auth.FacebookAuthProvider.credential(
-                                event.authResponse.accessToken);
+                                response.authResponse.accessToken);
                             // Sign in with the credential from the Facebook user.
                             firebase.auth().signInWithCredential(credential).catch(function (error) {
                                 // Handle Errors here.
@@ -150,10 +150,10 @@
                         }
                     });
 
-                    FB.api('/me', function (event) {
-                        console.log('Successful login for: ' + event.name);
+                    FB.api('/me', function (response) {
+                        console.log('Successful login for: ' + response.name);
                         FB_justify_notifyAPI();
-                        FB_justify_showMess(event.name);
+                        FB_justify_showMess(response.name);
                     });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Facebook帳號登入");
