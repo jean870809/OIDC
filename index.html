@@ -86,6 +86,7 @@
 
 
 
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
 
     <script type="text/javascript">
         //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
@@ -94,7 +95,7 @@
         //FB Login 官方文件：https://developers.facebook.com/docs/facebook-login/web
 
         // Load the Facebook Javascript SDK asynchronously
-        (function (d, s, id) {
+        /*(function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
@@ -111,12 +112,19 @@
                 version: 'v8.0' // use graph api version
             });
 
-        };
+        };*/
 
         //使用自己客製化的按鈕來登入
+        FB.init({
+            appId: '633575047536520',
+            status: true,
+            xfbml: true,
+            version: 'v8.0'
+        });
         function FBLogin() {
+            FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 
-            FB.login(function (event){
+            //FB.login(function (event) {
                 //debug用
                 /*console.log(response);
                 if (response.status === 'connected') {
@@ -139,7 +147,7 @@
                     // user FB取消授權
                     alert("Facebook帳號無法登入");
                 }*/
-                console.log(event);
+                /*console.log(event);
                 if (event.authResponse) {
                     // User is signed-in Facebook.
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
@@ -167,9 +175,41 @@
                 } else {
                     // User is signed-out of Facebook.
                     firebase.auth().signOut();
-                }
+                }*/
 
-            }, { scope: 'public_profile,email' });
+            //}, { scope: 'public_profile,email' });
+            
+        }
+        function checkLoginState(event) {
+            console.log(event);
+            if (event.authResponse) {
+                // User is signed-in Facebook.
+                var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+                    unsubscribe();
+                    // Check if we are already signed-in Firebase with the correct user.
+                    if (!isUserEqual(event.authResponse, firebaseUser)) {
+                        // Build Firebase credential with the Facebook auth token.
+                        var credential = firebase.auth.FacebookAuthProvider.credential(
+                            event.authResponse.accessToken);
+                        // Sign in with the credential from the Facebook user.
+                        firebase.auth().signInWithCredential(credential).catch(function (error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            // The email of the user's account used.
+                            var email = error.email;
+                            // The firebase.auth.AuthCredential type that was used.
+                            var credential = error.credential;
+                            // ...
+                        });
+                    } else {
+                        // User is already signed-in Firebase with the correct user.
+                    }
+                });
+            } else {
+                // User is signed-out of Facebook.
+                firebase.auth().signOut();
+            }
         }
 
         function isUserEqual(facebookAuthResponse, firebaseUser) {
