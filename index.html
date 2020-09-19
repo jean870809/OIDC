@@ -116,7 +116,7 @@
         //使用自己客製化的按鈕來登入
         function FBLogin() {
 
-            /*FB.login(function (response) {
+            FB.login(function (response) {
                 //debug用
                 console.log(response);
                 if (response.status === 'connected') {
@@ -139,9 +139,9 @@
                     // user FB取消授權
                     alert("Facebook帳號無法登入");
                 }
-            }, { scope: 'public_profile,email' });*/
+            }, { scope: 'public_profile,email' });
 
-            FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+            //FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 
         }
         function checkLoginState(event) {
