@@ -86,7 +86,6 @@
 
 
 
-    <script src="//connect.facebook.net/en_US/sdk.js"></script>
 
     <script type="text/javascript">
         //應用程式編號，進入 https://developers.facebook.com/apps/ 即可看到
@@ -95,7 +94,7 @@
         //FB Login 官方文件：https://developers.facebook.com/docs/facebook-login/web
 
         // Load the Facebook Javascript SDK asynchronously
-        /*(function (d, s, id) {
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
@@ -112,7 +111,7 @@
                 version: 'v8.0' // use graph api version
             });
 
-        };*/
+        };
 
         //使用自己客製化的按鈕來登入
         FB.init({
@@ -122,22 +121,44 @@
             version: 'v8.0'
         });
         function FBLogin() {
-            FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 
-            //FB.login(function (event) {
+            FB.login(function (event) {
                 //debug用
-                /*console.log(response);
-                if (response.status === 'connected') {
+                console.log(event);
+                if (event.authResponse) {
                     //user已登入FB
                     //抓userID
-                    let FB_ID = response["authResponse"]["userID"];
+                    let FB_ID = event["authResponse"]["userID"];
                     console.log("userID:" + FB_ID);
 
-                    console.log('Welcome!  Fetching your information.... ');
-                    FB.api('/me', function (response) {
-                        console.log('Successful login for: ' + response.name);
+                    //console.log('Welcome!  Fetching your information.... ');
+                    var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+                        unsubscribe();
+                        // Check if we are already signed-in Firebase with the correct user.
+                        if (!isUserEqual(event.authResponse, firebaseUser)) {
+                            // Build Firebase credential with the Facebook auth token.
+                            var credential = firebase.auth.FacebookAuthProvider.credential(
+                                event.authResponse.accessToken);
+                            // Sign in with the credential from the Facebook user.
+                            firebase.auth().signInWithCredential(credential).catch(function (error) {
+                                // Handle Errors here.
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                // The email of the user's account used.
+                                var email = error.email;
+                                // The firebase.auth.AuthCredential type that was used.
+                                var credential = error.credential;
+                                // ...
+                            });
+                        } else {
+                            // User is already signed-in Firebase with the correct user.
+                        }
+                    });
+
+                    FB.api('/me', function (event) {
+                        console.log('Successful login for: ' + event.name);
                         FB_justify_notifyAPI();
-                        FB_justify_showMess(response.name);
+                        FB_justify_showMess(event.name);
                     });
                     //window.location = 'https://rorubyy.github.io/ruby/tmp';
                     //alert("成功用Facebook帳號登入");
@@ -145,10 +166,10 @@
 
                 } else {
                     // user FB取消授權
+                    firebase.auth().signOut();
                     alert("Facebook帳號無法登入");
-                }*/
-                /*console.log(event);
-                if (event.authResponse) {
+                }
+                /*if (event.authResponse) {
                     // User is signed-in Facebook.
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
@@ -177,39 +198,7 @@
                     firebase.auth().signOut();
                 }*/
 
-            //}, { scope: 'public_profile,email' });
-            
-        }
-        function checkLoginState(event) {
-            console.log(event);
-            if (event.authResponse) {
-                // User is signed-in Facebook.
-                var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
-                    unsubscribe();
-                    // Check if we are already signed-in Firebase with the correct user.
-                    if (!isUserEqual(event.authResponse, firebaseUser)) {
-                        // Build Firebase credential with the Facebook auth token.
-                        var credential = firebase.auth.FacebookAuthProvider.credential(
-                            event.authResponse.accessToken);
-                        // Sign in with the credential from the Facebook user.
-                        firebase.auth().signInWithCredential(credential).catch(function (error) {
-                            // Handle Errors here.
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            // The email of the user's account used.
-                            var email = error.email;
-                            // The firebase.auth.AuthCredential type that was used.
-                            var credential = error.credential;
-                            // ...
-                        });
-                    } else {
-                        // User is already signed-in Firebase with the correct user.
-                    }
-                });
-            } else {
-                // User is signed-out of Facebook.
-                firebase.auth().signOut();
-            }
+            }, { scope: 'public_profile,email' });
         }
 
         function isUserEqual(facebookAuthResponse, firebaseUser) {
