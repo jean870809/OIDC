@@ -59,6 +59,7 @@
         function checkLoginState(event) {
             if (event.authResponse) {
                 // User is signed-in Facebook.
+                console.log(event.authResponse);
                 var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                     unsubscribe();
                     // Check if we are already signed-in Firebase with the correct user.
