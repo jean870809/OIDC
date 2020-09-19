@@ -116,9 +116,9 @@
         //使用自己客製化的按鈕來登入
         function FBLogin() {
 
-            FB.login(function (response) {
+            FB.login(function (event) {
                 //debug用
-                console.log(response);
+                /*console.log(response);
                 if (response.status === 'connected') {
                     //user已登入FB
                     //抓userID
@@ -138,45 +138,39 @@
                 } else {
                     // user FB取消授權
                     alert("Facebook帳號無法登入");
+                }*/
+                if (event.authResponse) {
+                    // User is signed-in Facebook.
+                    var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+                        unsubscribe();
+                        // Check if we are already signed-in Firebase with the correct user.
+                        if (!isUserEqual(event.authResponse, firebaseUser)) {
+                            // Build Firebase credential with the Facebook auth token.
+                            var credential = firebase.auth.FacebookAuthProvider.credential(
+                                event.authResponse.accessToken);
+                            // Sign in with the credential from the Facebook user.
+                            firebase.auth().signInWithCredential(credential).catch(function (error) {
+                                // Handle Errors here.
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                // The email of the user's account used.
+                                var email = error.email;
+                                // The firebase.auth.AuthCredential type that was used.
+                                var credential = error.credential;
+                                // ...
+                            });
+                        } else {
+                            // User is already signed-in Firebase with the correct user.
+                        }
+                    });
+                } else {
+                    // User is signed-out of Facebook.
+                    firebase.auth().signOut();
                 }
+
             }, { scope: 'public_profile,email' });
-
-            //FB.Event.subscribe('auth.authResponseChange', checkLoginState);
-
         }
-        function checkLoginState(event) {
-            if (event.authResponse) {
-                // User is signed-in Facebook.
-                var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
-                    unsubscribe();
-                    // Check if we are already signed-in Firebase with the correct user.
-                    if (!isUserEqual(event.authResponse, firebaseUser)) {
-                        // Build Firebase credential with the Facebook auth token.
-                        var credential = firebase.auth.FacebookAuthProvider.credential(
-                            event.authResponse.accessToken);
-                        // Sign in with the credential from the Facebook user.
-                        firebase.auth().signInWithCredential(credential).catch(function (error) {
-                            // Handle Errors here.
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            // The email of the user's account used.
-                            var email = error.email;
-                            // The firebase.auth.AuthCredential type that was used.
-                            var credential = error.credential;
-                            // ...
-                        });
-                        FB_justify_notifyAPI();
-                        FB_justify_showMess(response.name);
-
-                    } else {
-                        // User is already signed-in Firebase with the correct user.
-                    }
-                });
-            } else {
-                // User is signed-out of Facebook.
-                firebase.auth().signOut();
-            }
-        }
+        
         function isUserEqual(facebookAuthResponse, firebaseUser) {
             if (firebaseUser) {
                 var providerData = firebaseUser.providerData;
