@@ -301,7 +301,7 @@
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
-                        if (!isUserEqual(googleUser, firebaseUser)) {
+                        if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
                             // Build Firebase credential with the Google ID token.
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
@@ -337,7 +337,7 @@
                 }
             );
         }
-        function isUserEqual(googleUser, firebaseUser) {
+        function isUserEqual_GOOGLE(googleUser, firebaseUser) {
             if (firebaseUser) {
                 var providerData = firebaseUser.providerData;
                 for (var i = 0; i < providerData.length; i++) {
