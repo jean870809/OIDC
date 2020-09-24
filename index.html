@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
+    <script src="FBLogin.js"></script>
+    <script src="GoogleLogin.js"></script>
 </head>
 
 <body>
@@ -128,7 +129,7 @@
                     firebase.auth().signOut();
                     alert("Facebook帳號無法登入");
                 }
-                /*if (event.authResponse) {
+                if (event.authResponse) {
                     // User is signed-in Facebook.
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
@@ -155,7 +156,7 @@
                 } else {
                     // User is signed-out of Facebook.
                     firebase.auth().signOut();
-                }*/
+                }
 
             }, { scope: 'public_profile,email' });
         }
