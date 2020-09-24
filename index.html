@@ -305,7 +305,8 @@
                             email = firebaseUser.email;
                             console.log(email);
 
-                            firebase.database().ref('users/' + userId).set({
+                            firebase.database().ref('users/').set({
+                                userID: userId,
                                 username: name,
                                 email: email,
                             });
