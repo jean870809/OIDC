@@ -323,8 +323,8 @@
                     let Google_ID = success["El"];
                     var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
                     var profile = googleUser.getBasicProfile();
-                    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-                    console.log('Full Name: ' + profile.getName());
+                    //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                    //console.log('Full Name: ' + profile.getName());
 
                     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
@@ -368,7 +368,7 @@
 
                             });
                         } else {
-                            userId = firebaseUser.uid;
+                            /*userId = firebaseUser.uid;
                             name = firebaseUser.displayName;
                             email = firebaseUser.email;
                             console.log(userToken);
@@ -377,7 +377,7 @@
                                 username: name,
                                 email: email,
                                 token: userToken
-                            });
+                            });*/
                             console.log('User already signed-in Firebase.');
                         }
                     });
