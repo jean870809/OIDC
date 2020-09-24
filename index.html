@@ -349,12 +349,12 @@
                                     console.log(name);
                                     email = firebaseUser.email;
                                     console.log(email);
-                                    console.log(currentToken);
+                                    console.log(userToken);
                                     firebase.database().ref('users/').set({
                                         userID: userId,
                                         username: name,
                                         email: email,
-                                        token: currentToken
+                                        token: userToken
                                     });
                                 }
                             });
