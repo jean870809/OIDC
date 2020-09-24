@@ -331,9 +331,6 @@
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
 
-
-
-                        //console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
 
 
@@ -358,6 +355,7 @@
                             });*/
                             firebase.auth().signInWithCredential(credential).catch(function (error) {
                                 // Handle Errors here.
+                                console.log(error);
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
                                 // The email of the user's account used.
@@ -365,7 +363,11 @@
                                 // The firebase.auth.AuthCredential type that was used.
                                 var credential = error.credential;
                                 // ...
-
+                                if (errorCode === 'auth/account-exists-with-different-credential') {
+                                    alert('Email already associated with another account.');
+                                } else {
+                                    console.error(error);
+                                }
                             });
                         } else {
                             /*userId = firebaseUser.uid;
