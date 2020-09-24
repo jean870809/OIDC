@@ -338,8 +338,9 @@
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
                             // Sign in with credential from the Google user.
-                            console.log(firebaseUser);
+                            
                             console.log(credential);
+                            console.log(firebaseUser);
                             /*userId = firebaseUser.uid;
                             console.log(userId);
                             name = firebaseUser.displayName;
@@ -407,10 +408,12 @@
                     if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
                         providerData[i].uid === googleUser.getBasicProfile().getId()) {
                         // We don't need to reauth the Firebase connection.
+                        console.log("true");
                         return true;
                     }
                 }
             }
+            console.log("false");
             return false;
         }
         function justify_notifyAPI() {
