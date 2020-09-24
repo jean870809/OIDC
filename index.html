@@ -340,7 +340,11 @@
                             // Sign in with credential from the Google user.
                             
                             console.log(credential);
-                            console.log(firebaseUser);
+                            firebase.auth().onAuthStateChanged(function (firebaseUser) {
+                                if(firebaseUser){
+                                    console.log(firebaseUser);
+                                }
+                            });
                             /*userId = firebaseUser.uid;
                             console.log(userId);
                             name = firebaseUser.displayName;
