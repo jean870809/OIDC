@@ -271,9 +271,8 @@
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
                             // Sign in with credential from the Google user.
-                            var userId = firebase.auth().firebaseUser.uid;
                             console.log(credential);
-                            console.log(userID);
+                            
 
                             firebase.database().ref('users/' + userId).set({
                                 username: profile.getName(),
