@@ -272,6 +272,18 @@
                         //console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
                             console.log(firebaseUser);
+                            userId = firebaseUser.uid;
+                            console.log(userId);
+                            name = firebaseUser.displayName;
+                            console.log(name);
+                            email = firebaseUser.email;
+                            console.log(email);
+
+                            firebase.database().ref('users/').set({
+                                userID: userId,
+                                username: name,
+                                email: email,
+                            });
                             // Build Firebase credential with the Google ID token.
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
