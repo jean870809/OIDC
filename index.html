@@ -280,6 +280,7 @@
         const messaging = firebase.messaging();
         messaging.usePublicVapidKey('BJZ0GlXbOZD_Xb0JTHZiLg9wlQN7HCwEd6q4VtdmROfL0vezkE3y8dmFztu3tbQ1rlE681RfzeVZbsVg3G0vQBk');
 
+        var userToken;
         // Get Instance ID token. Initially this makes a network call, once retrieved
         // subsequent calls to getToken will return from cache.
         // Callback fired if Instance ID token is updated.
@@ -297,6 +298,8 @@
         messaging.getToken().then((currentToken) => {
             if (currentToken) {
                 console.log(currentToken);
+                userToken = currentToken;
+                console.log(userToken);
                 //sendTokenToServer(currentToken);
                 //updateUIForPushEnabled(currentToken);
             } else {
@@ -372,7 +375,7 @@
                                 userID: userId,
                                 username: name,
                                 email: email,
-                                token: currentToken
+                                token: userToken
                             });
                             console.log('User already signed-in Firebase.');
                         }
