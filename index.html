@@ -266,8 +266,7 @@
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
-                        var user = firebase.auth().currentUser;
-                        console.log(user);
+                        console.log(firebaseUser.displayName);
                         
                         //console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
