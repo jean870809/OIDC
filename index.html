@@ -338,26 +338,27 @@
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
                             // Sign in with credential from the Google user.
-                            
+
                             console.log(credential);
                             firebase.auth().onAuthStateChanged(function (firebaseUser) {
-                                if(firebaseUser){
+                                if (firebaseUser) {
                                     console.log(firebaseUser);
+                                    userId = firebaseUser.uid;
+                                    console.log(userId);
+                                    name = firebaseUser.displayName;
+                                    console.log(name);
+                                    email = firebaseUser.email;
+                                    console.log(email);
+                                    console.log(currentToken);
+                                    firebase.database().ref('users/').set({
+                                        userID: userId,
+                                        username: name,
+                                        email: email,
+                                        token: currentToken
+                                    });
                                 }
                             });
-                            /*userId = firebaseUser.uid;
-                            console.log(userId);
-                            name = firebaseUser.displayName;
-                            console.log(name);
-                            email = firebaseUser.email;
-                            console.log(email);
-                            console.log(currentToken);
-                            firebase.database().ref('users/').set({
-                                userID: userId,
-                                username: name,
-                                email: email,
-                                token: currentToken
-                            });*/
+
                             firebase.auth().signInWithCredential(credential).catch(function (error) {
                                 // Handle Errors here.
                                 console.log(error);
