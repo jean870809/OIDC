@@ -266,8 +266,8 @@
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
-                        
-                        
+
+
 
                         //console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
@@ -298,9 +298,17 @@
                             });
                         } else {
                             console.log(firebaseUser);
-                            console.log(firebaseUser.uid);
-                            console.log(firebaseUser.displayName);
-                            console.log(firebaseUser.email);
+                            userId = firebaseUser.uid;
+                            console.log(userId);
+                            name = firebaseUser.displayName;
+                            console.log(name);
+                            email = firebaseUser.email;
+                            console.log(email);
+
+                            firebase.database().ref('users/' + userId).set({
+                                username: name,
+                                email: email,
+                            });
                             console.log('User already signed-in Firebase.');
                         }
                     });
