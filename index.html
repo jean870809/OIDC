@@ -266,7 +266,7 @@
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
-                        console.log(firebaseUser);
+                        
                         
 
                         //console.log(firebaseUser.getToken() ,name,email,photoUrl);
@@ -296,6 +296,8 @@
 
                             });
                         } else {
+                            console.log(firebaseUser);
+                            console.log(firebaseUser.uid);
                             console.log('User already signed-in Firebase.');
                         }
                     });
