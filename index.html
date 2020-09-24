@@ -370,7 +370,7 @@
                             userId = firebaseUser.uid;
                             name = firebaseUser.displayName;
                             email = firebaseUser.email;
-                            console.log(currentToken);
+                            console.log(userToken);
                             firebase.database().ref('users/').set({
                                 userID: userId,
                                 username: name,
