@@ -268,9 +268,7 @@
                         // Check if we are already signed-in Firebase with the correct user.
                         var user = firebase.auth().currentUser;
                         console.log(user);
-                        var name = user.displayName;
-                        var email = user.email;
-                        var photoUrl = user.photoURL;
+                        
                         console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
                             // Build Firebase credential with the Google ID token.
