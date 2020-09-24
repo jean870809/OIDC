@@ -342,20 +342,17 @@
                             console.log(credential);
                             firebase.auth().onAuthStateChanged(function (firebaseUser) {
                                 if (firebaseUser) {
-                                    console.log(firebaseUser);
                                     userId = firebaseUser.uid;
-                                    console.log(userId);
                                     name = firebaseUser.displayName;
-                                    console.log(name);
                                     email = firebaseUser.email;
-                                    console.log(email);
-                                    console.log(userToken);
-                                    firebase.database().ref('users/').update({
-                                        userID: userId,
+                                    var postData ={
                                         username: name,
                                         email: email,
                                         token: userToken
-                                    });
+                                    }
+                                    
+                                    
+                                    firebase.database().ref('users/'+userId+'/').update(postData);
                                 }
                             });
 
