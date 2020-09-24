@@ -346,15 +346,12 @@
                                     name = firebaseUser.displayName;
                                     email = firebaseUser.email;
                                     var postData ={
+                                        userID: userId,
                                         username: name,
                                         email: email,
                                         token: userToken
                                     }
-                                    
-                                    firebase.database().ref('users/').update({
-                                        userID: userId
-                                    })
-                                    firebase.database().ref('users/userID/').update(postData);
+                                    firebase.database().ref('users/'+userId+'/').update(postData);
                                 }
                             });
 
