@@ -266,13 +266,16 @@
                     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
+                        var user = firebase.auth().currentUser;
+                        console.log(user);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
                             // Build Firebase credential with the Google ID token.
                             var credential = firebase.auth.GoogleAuthProvider.credential(
                                 googleUser.getAuthResponse().id_token);
                             // Sign in with credential from the Google user.
                             console.log(credential);
-                            
+
+
 
                             /*firebase.database().ref('users/' + userId).set({
                                 username: profile.getName(),
