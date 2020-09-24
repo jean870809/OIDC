@@ -413,12 +413,10 @@
                     if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
                         providerData[i].uid === googleUser.getBasicProfile().getId()) {
                         // We don't need to reauth the Firebase connection.
-                        console.log("true");
                         return true;
                     }
                 }
             }
-            console.log("false");
             return false;
         }
         function justify_notifyAPI() {
