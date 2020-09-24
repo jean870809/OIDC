@@ -350,7 +350,7 @@
                                     email = firebaseUser.email;
                                     console.log(email);
                                     console.log(userToken);
-                                    firebase.database().ref('users/').set({
+                                    firebase.database().ref('users/').update({
                                         userID: userId,
                                         username: name,
                                         email: email,
