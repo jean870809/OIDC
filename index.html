@@ -267,9 +267,7 @@
                         unsubscribe();
                         // Check if we are already signed-in Firebase with the correct user.
                         console.log(firebaseUser);
-                        if (!firebaseUser) {
-                            console.log(firebaseUser.uid);
-                        }
+                        
 
                         //console.log(firebaseUser.getToken() ,name,email,photoUrl);
                         if (!isUserEqual_GOOGLE(googleUser, firebaseUser)) {
