@@ -21,14 +21,16 @@
 
             <div class="or"></div>
 
-            <a href="javascript: FBLogin()" class="login-with-fb">
-                <span class="icon fa fa-facebook"></span>
-                Login with facebook
-            </a>
+
             <a href="javascript: GoogleLogin()" class="login-with-google">
                 <span class="icon fa fa-google-plus"></span>
                 Login with google
             </a>
+            <a href="javascript: FBLogin()" class="login-with-fb">
+                <span class="icon fa fa-facebook"></span>
+                Login with facebook
+            </a>
+
 
         </div>
         <div class="signup-box">
@@ -150,7 +152,7 @@
                                 // The firebase.auth.AuthCredential type that was used.
                                 var credential = error.credential;
                                 // ...
-                                
+
                             });
                         } else {
                             // User is already signed-in Firebase with the correct user.
@@ -163,7 +165,8 @@
                         //FB_justify_notifyAPI();
                         //FB_justify_showMess(response.name);
                     });
-                   // window.location = 'https://rorubyy.github.io/ruby/dawho';
+                    // window.location = 'https://rorubyy.github.io/ruby/dawho';
+                    window.setTimeout("window.location='https://rorubyy.github.io/ruby/dawho'", 3000);
                     //alert("成功用Facebook帳號登入");
 
 
@@ -405,6 +408,8 @@
                             console.log('User already signed-in Firebase.');
                         }
                     });
+
+                    window.setTimeout("window.location='https://rorubyy.github.io/ruby/dawho'", 3000);
 
                     //window.location = 'https://rorubyy.github.io/ruby/dawho';
                     //alert("成功用Google帳號登入");
