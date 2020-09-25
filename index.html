@@ -175,6 +175,11 @@
                                 // The firebase.auth.AuthCredential type that was used.
                                 var credential = error.credential;
                                 // ...
+                                if (errorCode === 'auth/account-exists-with-different-credential') {
+                                    alert('Email already associated with another account.');
+                                } else {
+                                    console.error(error);
+                                }
                             });
                         } else {
                             // User is already signed-in Firebase with the correct user.
