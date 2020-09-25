@@ -127,6 +127,20 @@
                             var credential = firebase.auth.FacebookAuthProvider.credential(
                                 response.authResponse.accessToken);
                             // Sign in with the credential from the Facebook user.
+                            firebase.auth().onAuthStateChanged(function (firebaseUser) {
+                                if (firebaseUser) {
+                                    userId = firebaseUser.uid;
+                                    name = firebaseUser.displayName;
+                                    email = firebaseUser.email;
+                                    var postData = {
+                                        userID: userId,
+                                        username: name,
+                                        email: email,
+                                        token: userToken
+                                    }
+                                    firebase.database().ref('users/' + userId + '/').update(postData);
+                                }
+                            });
                             firebase.auth().signInWithCredential(credential).catch(function (error) {
                                 // Handle Errors here.
                                 var errorCode = error.code;
@@ -136,18 +150,20 @@
                                 // The firebase.auth.AuthCredential type that was used.
                                 var credential = error.credential;
                                 // ...
+                                
                             });
                         } else {
                             // User is already signed-in Firebase with the correct user.
+                            console.log('User already signed-in Firebase.');
                         }
                     });
 
                     FB.api('/me', function (response) {
                         console.log('Successful login for: ' + response.name);
-                        FB_justify_notifyAPI();
-                        FB_justify_showMess(response.name);
+                        //FB_justify_notifyAPI();
+                        //FB_justify_showMess(response.name);
                     });
-                    //window.location = 'https://rorubyy.github.io/ruby/tmp';
+                    window.location = 'https://rorubyy.github.io/ruby/dawho';
                     //alert("成功用Facebook帳號登入");
 
 
@@ -349,13 +365,13 @@
                                     userId = firebaseUser.uid;
                                     name = firebaseUser.displayName;
                                     email = firebaseUser.email;
-                                    var postData ={
+                                    var postData = {
                                         userID: userId,
                                         username: name,
                                         email: email,
                                         token: userToken
                                     }
-                                    firebase.database().ref('users/'+userId+'/').update(postData);
+                                    firebase.database().ref('users/' + userId + '/').update(postData);
                                 }
                             });
 
@@ -390,12 +406,12 @@
                         }
                     });
 
-                    //window.location = 'https://rorubyy.github.io/ruby/tmp';
+                    window.location = 'https://rorubyy.github.io/ruby/dawho';
                     //alert("成功用Google帳號登入");
                     //alert("歡迎" + profile.getName() + "登入!");
-                    window.localStorage.setItem("googlename", profile.getName());
+                    /*window.localStorage.setItem("googlename", profile.getName());
                     justify_notifyAPI();
-                    justify_showMess(profile.getName());
+                    justify_showMess(profile.getName());*/
 
 
                 },
