@@ -38,34 +38,10 @@
     </script>
     <script>
         var user;
-        firebase.database().ref('users/hu20OsR46Fdvfi6cxjSQ383vDm22/token').once('value', function (snapshot) {
+        firebase.database().ref('users/').on('value', function (snapshot) {
             var data = snapshot.val();
-            user = snapshot.val();
             console.log(data);
         });
-        var key = 'AAAAsbNDVbs:APA91bG7xWF5l0EUl6UHLeOJyXUtL7AgzmGkw_F4BCoAxKJOZh_SVp7zhfypLaisu2_godUq31RWfTHiu-lzXkIsgvbrmWUBiPlWEDiRCZiPvieZjeiWVp823py053b2z5uJJpUkwJne';
-        var to = user;
-        var notification = {
-            'title': '股金中外',
-            'body': '換檔喽咩噗',
-            'icon': 'https://firebasestorage.googleapis.com/v0/b/test-f3031.appspot.com/o/%E6%AD%B7%E5%8F%B2%E7%BE%8A.jpg?alt=media&token=cc95d21d-7aed-472d-911f-1bdeda3ecc11',
-        };
-
-        fetch('https://fcm.googleapis.com/fcm/send', {
-            'method': 'POST',
-            'headers': {
-                'Authorization': 'key=' + key,
-                'Content-Type': 'application/json'
-            },
-            'body': JSON.stringify({
-                'notification': notification,
-                'to': to
-            })
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.error(error);
-        })
     </script>
 </body>
 

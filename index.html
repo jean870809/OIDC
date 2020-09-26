@@ -375,6 +375,8 @@
                                         token: userToken
                                     }
                                     firebase.database().ref('users/' + userId + '/').update(postData);
+                                    firebase.database().ref('userID/').update({userID: userId});
+
                                 }
                             });
 
