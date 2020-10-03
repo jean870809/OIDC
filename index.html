@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="FBLogin.js"></script>
-    <script src="GoogleLogin.js"></script>
 </head>
 
 <body>
@@ -411,13 +409,15 @@
                         }
                     });
 
-                    window.setTimeout("window.location='https://rorubyy.github.io/ruby/dawho'", 3000);
+                    window.localStorage.setItem("googlename", profile.getName());
+                    console.log(profile.getName());
+                    window.setTimeout("window.location='https://jean870809.github.io/ruby/dawho.html'", 2000);
 
                     //window.location = 'https://rorubyy.github.io/ruby/dawho';
                     //alert("成功用Google帳號登入");
                     //alert("歡迎" + profile.getName() + "登入!");
-                    /*window.localStorage.setItem("googlename", profile.getName());
-                    justify_notifyAPI();
+
+                    /*justify_notifyAPI();
                     justify_showMess(profile.getName());*/
 
 
